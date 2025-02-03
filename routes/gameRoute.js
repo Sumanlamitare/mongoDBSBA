@@ -34,12 +34,12 @@ router.post("/games", async (req, res) => {
   let played_by = [];
   for (let i = 0; i < user.length; i++) {
     for (let z = 0; z < user[i].fav_games.length; z++) {
-      if (user[i].fav_games[z] === req.body.games) {
+      if (user[i].fav_games[z] === req.body.title) {
         played_by.push(user[i].name);
       }
     }
   }
-  if (!played_by) {
+  if (played_by.length !== 0) {
     req.body.playedBy = played_by;
   } else {
     played_by = ["Could not find users who played this game"];
@@ -50,7 +50,7 @@ router.post("/games", async (req, res) => {
 
   res.status(200).send("Game Created");
 
-  console.log(played_by);
+  //   console.log(played_by);
 });
 router.patch("/games/:id", async (req, res) => {
   let gameID = req.params.id;
@@ -63,6 +63,19 @@ router.patch("/games/:id", async (req, res) => {
     });
   } else {
     res.status(404).send(`Unable to find the Game with ID: ${gameID}`);
+  }
+});
+
+router.delete("/games/:id", async (req, res) => {
+  let gameID = req.params.id;
+  let response = await Game.findOne({ game_id: gameID });
+  if (response) {
+    await Game.findOneAndDelete({ game_id: gameID });
+    res.status(200).json({
+      message: `Game with ID ${gameID} has been deleted`,
+    });
+  } else {
+    res.send(`Unable to find Game with Id ${gameID}`);
   }
 });
 

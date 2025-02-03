@@ -20,10 +20,16 @@ router.get("/users/:id", async (req, res) => {
   let userID = req.params.id;
   let response = await User.findOne({ user_id: userID });
 
-  res.json({
-    message: `User with User ID ${userID} `,
-    user: response,
-  });
+  if (response) {
+    res.json({
+      message: `User with User ID ${userID} `,
+      user: response,
+    });
+  } else {
+    res.json({
+      message: `Cannot find the user with ID ${userID}`,
+    });
+  }
 });
 
 router.post("/users", async (req, res) => {
