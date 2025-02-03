@@ -10,7 +10,7 @@ This API also includes predefined sample data for testing when the app is first 
 
 ## Base URL
 
-[text](http://localhost:3000)
+(http://localhost:3000)
 
 ---
 
