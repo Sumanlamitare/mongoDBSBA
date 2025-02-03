@@ -19,20 +19,7 @@ const reviewRoute = require("./routes/reviewRoutes.js");
 // mongoose.connection.on("connected", () => {
 //   console.log("Connected to MongoDB " + mongoose.connection.name);
 // });
-function startLiveClock() {
-  setInterval(() => {
-    const currentDate = new Date(); // Get the current date and time
 
-    const hours = currentDate.getHours().toString().padStart(2, "0"); // Format hours (e.g., 09 instead of 9)
-    const minutes = currentDate.getMinutes().toString().padStart(2, "0"); // Format minutes
-    const seconds = currentDate.getSeconds().toString().padStart(2, "0"); // Format seconds
-
-    const timeString = `${hours}:${minutes}:${seconds}`; // Create a time string in HH:MM:SS format
-
-    // Update the DOM or log the time in the console
-    console.log(timeString); // You can replace this with code to display on your webpage
-  }, 1000); // Update every 1000ms (1 second)
-}
 async function addSampleData() {
   let review = await Review.countDocuments();
   let game = await Review.countDocuments();
